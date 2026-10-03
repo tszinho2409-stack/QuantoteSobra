@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>QuantoTeSobra? — Descobre o teu dinheiro</title>
+
+<meta name="description"
+content="Descobre quanto dinheiro realmente te sobra todos os meses e aprende a organizar melhor o teu dinheiro.">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#070807;
+    --card:#111311;
+    --card2:#171a17;
+    --line:#282c28;
+    --text:#fff;
+    --muted:#9ca39d;
+    --green:#39e58b;
+    --green2:#1fb86c;
+    --yellow:#ffd166;
+    --red:#ff5c5c;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.5;
+}
+
+button,input{
+    font-family:inherit;
+}
+
+header{
+    padding:20px 6%;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:20px;
+    font-weight:900;
+}
+
+.logo span{
+    color:var(--green);
+}
+
+.header-button{
+    border:1px solid var(--line);
+    background:transparent;
+    color:#fff;
+    padding:9px 14px;
+    border-radius:30px;
+    font-size:12px;
+}
+
+.hero{
+    text-align:center;
+    padding:65px 20px 30px;
+}
+
+.badge{
+    display:inline-block;
+    color:var(--green);
+    background:#0d1912;
+    border:1px solid #21462f;
+    padding:7px 13px;
+    border-radius:30px;
+    font-size:12px;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+.hero h1{
+    font-size:clamp(44px,8vw,78px);
+    line-height:.95;
+    letter-spacing:-4px;
+}
+
+.hero h1 span{
+    color:var(--green);
+}
+
+.hero p{
+    color:var(--muted);
+    max-width:570px;
+    margin:22px auto 0;
+    font-size:16px;
+}
+
+.container{
+    width:min(940px,92%);
+    margin:auto;
+}
+
+/* AD SPACE */
+
+.ad{
+    margin:25px 0;
+    height:90px;
+    border:1px dashed #303530;
+    border-radius:15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#5d635e;
+    font-size:11px;
+    letter-spacing:1px;
+}
+
+/* CALCULATOR */
+
+.calculator{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:25px;
+    padding:30px;
+}
+
+.title{
+    font-size:23px;
+    font-weight:900;
+    margin-bottom:20px;
+}
+
+.inputs{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+}
+
+.field{
+    background:var(--card2);
+    border:1px solid var(--line);
+    border-radius:15px;
+    padding:15px;
+}
+
+.field label{
+    display:block;
+    color:#aeb5af;
+    font-size:12px;
+    margin-bottom:7px;
+}
+
+.field input{
+    width:100%;
+    background:none;
+    border:0;
+    outline:0;
+    color:#fff;
+    font-size:21px;
+    font-weight:bold;
+}
+
+.field input::placeholder{
+    color:#4e544f;
+}
+
+.calculate{
+    width:100%;
+    margin-top:18px;
+    padding:18px;
+    border:0;
+    border-radius:14px;
+    background:var(--green);
+    color:#06130c;
+    font-size:16px;
+    font-weight:900;
+    cursor:pointer;
+}
+
+/* RESULT */
+
+.result{
+    display:none;
+    margin-top:20px;
+}
+
+.result.show{
+    display:block;
+}
+
+.main-result{
+    background:#0d1711;
+    border:1px solid #245337;
+    border-radius:20px;
+    padding:30px;
+    text-align:center;
+}
+
+.small-label{
+    color:#9da69f;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.amount{
+    font-size:clamp(45px,9vw,72px);
+    letter-spacing:-4px;
+    font-weight:900;
+    margin:5px 0;
+}
+
+.amount.green{
+    color:var(--green);
+}
+
+.amount.red{
+    color:var(--red);
+}
+
+.amount.yellow{
+    color:var(--yellow);
+}
+
+.status{
+    margin-top:12px;
+    font-weight:bold;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin-top:12px;
+}
+
+.stat{
+    background:var(--card2);
+    border:1px solid var(--line);
+    padding:17px;
+    border-radius:15px;
+}
+
+.stat small{
+    display:block;
+    color:var(--muted);
+    margin-bottom:5px;
+}
+
+.stat strong{
+    font-size:19px;
+}
+
+/* PREMIUM */
+
+.premium{
+    margin-top:15px;
+    background:linear-gradient(145deg,#151b17,#0c100d);
+    border:1px solid #365740;
+    border-radius:20px;
+    padding:25px;
+    position:relative;
+    overflow:hidden;
+}
+
+.premium-badge{
+    display:inline-block;
+    background:var(--green);
+    color:#06130c;
+    padding:5px 9px;
+    border-radius:20px;
+    font-size:10px;
+    font-weight:900;
+    margin-bottom:10px;
+}
+
+.premium h2{
+    font-size:25px;
+    margin-bottom:8px;
+}
+
+.premium p{
+    color:var(--muted);
+    font-size:14px;
+    max-width:650px;
+}
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:9px;
+    margin:18px 0;
+}
+
+.feature{
+    color:#dce2dd;
+    font-size:13px;
+}
+
+.buy{
+    display:inline-block;
+    width:100%;
+    border:0;
+    padding:16px;
+    border-radius:13px;
+    background:var(--green);
+    color:#06130c;
+    font-weight:900;
+    cursor:pointer;
+    font-size:15px;
+}
+
+.price{
+    margin-top:8px;
+    text-align:center;
+    color:#777d78;
+    font-size:11px;
+}
+
+/* SHARE */
+
+.share{
+    width:100%;
+    margin-top:12px;
+    padding:15px;
+    background:transparent;
+    border:1px solid var(--line);
+    color:white;
+    border-radius:13px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* TOOLS */
+
+.tools{
+    padding:70px 0 20px;
+    text-align:center;
+}
+
+.tools h2{
+    font-size:30px;
+    margin-bottom:10px;
+}
+
+.tools>p{
+    color:var(--muted);
+}
+
+.tool-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:13px;
+    margin-top:25px;
+}
+
+.tool{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:22px;
+    text-align:left;
+    transition:.2s;
+}
+
+.tool:hover{
+    transform:translateY(-3px);
+    border-color:#3c463e;
+}
+
+.tool-icon{
+    font-size:25px;
+    margin-bottom:10px;
+}
+
+.tool h3{
+    margin-bottom:5px;
+}
+
+.tool p{
+    color:var(--muted);
+    font-size:13px;
+}
+
+/* EMAIL */
+
+.email-box{
+    margin:50px 0;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:22px;
+    padding:30px;
+    text-align:center;
+}
+
+.email-box h2{
+    margin-bottom:8px;
+}
+
+.email-box p{
+    color:var(--muted);
+    font-size:14px;
+    max-width:520px;
+    margin:auto;
+}
+
+.email-form{
+    display:flex;
+    max-width:520px;
+    margin:20px auto 0;
+    gap:8px;
+}
+
+.email-form input{
+    flex:1;
+    background:#080908;
+    border:1px solid var(--line);
+    color:white;
+    padding:14px;
+    border-radius:12px;
+    outline:none;
+}
+
+.email-form button{
+    background:var(--green);
+    border:0;
+    padding:0 20px;
+    border-radius:12px;
+    font-weight:900;
+    cursor:pointer;
+}
+
+/* FOOTER */
+
+footer{
+    border-top:1px solid var(--line);
+    padding:30px 20px;
+    text-align:center;
+    color:#606660;
+    font-size:11px;
+}
+
+footer a{
+    color:#777d78;
+}
+
+/* MODAL */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.78);
+    z-index:20;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal.active{
+    display:flex;
+}
+
+.modal-box{
+    background:#121512;
+    border:1px solid var(--line);
+    border-radius:22px;
+    padding:30px;
+    max-width:450px;
+    width:100%;
+    text-align:center;
+}
+
+.modal-box h2{
+    margin-bottom:10px;
+}
+
+.modal-box p{
+    color:var(--muted);
+    font-size:14px;
+}
+
+.modal-close{
+    margin-top:15px;
+    background:transparent;
+    border:1px solid var(--line);
+    color:white;
+    padding:12px 20px;
+    border-radius:12px;
+    cursor:pointer;
+}
+
+@media(max-width:700px){
+
+    .inputs,
+    .stats,
+    .tool-grid{
+        grid-template-columns:1fr;
+    }
+
+    .features{
+        grid-template-columns:1fr;
+    }
+
+    .calculator{
+        padding:20px;
+    }
+
+    .email-form{
+        flex-direction:column;
+    }
+
+    .email-form button{
+        padding:14px;
+    }
+
+    .hero h1{
+        letter-spacing:-2px;
+    }
+
+    .header-button{
+        display:none;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        Quanto<span>TeSobra</span>?
+    </div>
+
+    <button class="header-button" onclick="scrollToTools()">
+        OUTRAS FERRAMENTAS
+    </button>
+
+</header>
+
+
+<section class="hero">
+
+    <div class="badge">
+        💰 GRATUITO · SEM REGISTO
+    </div>
+
+    <h1>
+        Quanto dinheiro<br>
+        <span>te sobra?</span>
+    </h1>
+
+    <p>
+        Descobre em menos de 30 segundos quanto realmente
+        consegues guardar todos os meses.
+    </p>
+
+</section>
+
+
+<main class="container">
+
+
+    <!-- ESPAÇO PUBLICITÁRIO -->
+
+    <div class="ad">
+        ESPAÇO PUBLICITÁRIO
+    </div>
+
+
+    <!-- CALCULADORA -->
+
+    <section class="calculator">
+
+        <div class="title">
+            Calcula o teu mês
+        </div>
+
+        <div class="inputs">
+
+            <div class="field">
+                <label>💵 Rendimento mensal</label>
+                <input id="income" type="number" min="0" placeholder="1200">
+            </div>
+
+            <div class="field">
+                <label>🏠 Casa / renda</label>
+                <input id="rent" type="number" min="0" placeholder="500">
+            </div>
+
+            <div class="field">
+                <label>🚗 Carro / transporte</label>
+                <input id="car" type="number" min="0" placeholder="180">
+            </div>
+
+            <div class="field">
+                <label>⛽ Combustível</label>
+                <input id="fuel" type="number" min="0" placeholder="100">
+            </div>
+
+            <div class="field">
+                <label>🍔 Alimentação</label>
+                <input id="food" type="number" min="0" placeholder="250">
+            </div>
+
+            <div class="field">
+                <label>📱 Telemóvel / Internet</label>
+                <input id="phone" type="number" min="0" placeholder="40">
+            </div>
+
+            <div class="field">
+                <label>🎬 Lazer / subscrições</label>
+                <input id="fun" type="number" min="0" placeholder="50">
+            </div>
+
+            <div class="field">
+                <label>💳 Outras despesas</label>
+                <input id="other" type="number" min="0" placeholder="100">
+            </div>
+
+        </div>
+
+        <button class="calculate" onclick="calculate()">
+            CALCULAR AGORA →
+        </button>
+
+
+        <div class="result" id="result">
+
+            <div class="main-result">
+
+                <div class="small-label">
+                    SOBRA-TE POR MÊS
+                </div>
+
+                <div class="amount" id="remaining">
+                    €0
+                </div>
+
+                <div id="yearly" class="small-label">
+                    €0 por ano
+                </div>
+
+                <div class="status" id="status"></div>
+
+            </div>
+
+
+            <div class="stats">
+
+                <div class="stat">
+                    <small>Rendimento</small>
+                    <strong id="incomeResult">€0</strong>
+                </div>
+
+                <div class="stat">
+                    <small>Despesas</small>
+                    <strong id="expensesResult">€0</strong>
+                </div>
+
+                <div class="stat">
+                    <small>Poupança</small>
+                    <strong id="savingResult">0%</strong>
+                </div>
+
+            </div>
+
+
+            <!-- OFERTA PREMIUM -->
+
+            <div class="premium">
+
+                <div class="premium-badge">
+                    VERSÃO PRO
+                </div>
+
+                <h2>
+                    Queres saber mais do que apenas o resultado?
+                </h2>
+
+                <p>
+                    Desbloqueia uma análise financeira completa
+                    e descobre onde estás a gastar mais dinheiro.
+                </p>
+
+                <div class="features">
+
+                    <div class="feature">
+                        ✓ Análise das tuas despesas
+                    </div>
+
+                    <div class="feature">
+                        ✓ Plano de poupança personalizado
+                    </div>
+
+                    <div class="feature">
+                        ✓ Objetivo para €1.000
+                    </div>
+
+                    <div class="feature">
+                        ✓ Simulação para 12 meses
+                    </div>
+
+                    <div class="feature">
+                        ✓ Estratégia para reduzir despesas
+                    </div>
+
+                    <div class="feature">
+                        ✓ Relatório completo
+                    </div>
+
+                </div>
+
+                <button class="buy" onclick="openPurchase()">
+                    DESBLOQUEAR POR €4,99
+                </button>
+
+                <div class="price">
+                    Pagamento único · sem mensalidade
+                </div>
+
+            </div>
+
+
+            <button class="share" onclick="shareResult()">
+                📲 PARTILHAR O MEU RESULTADO
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- SEGUNDO ESPAÇO DE PUBLICIDADE -->
+
+    <div class="ad">
+        ESPAÇO PUBLICITÁRIO
+    </div>
+
+
+    <!-- FERRAMENTAS -->
+
+    <section class="tools" id="tools">
+
+        <h2>
+            Mais ferramentas
+        </h2>
+
+        <p>
+            Estamos a criar novas calculadoras gratuitas.
+        </p>
+
+
+        <div class="tool-grid">
+
+            <div class="tool">
+                <div class="tool-icon">🚗</div>
+                <h3>Que carro consigo pagar?</h3>
+                <p>
+                    Descobre quanto podes gastar num carro
+                    sem rebentar o teu orçamento.
+                </p>
+            </div>
+
+            <div class="tool">
+                <div class="tool-icon">🏠</div>
+                <h3>Quanto posso pagar de renda?</h3>
+                <p>
+                    Calcula um valor de renda compatível
+                    com o teu rendimento.
+                </p>
+            </div>
+
+            <div class="tool">
+                <div class="tool-icon">🎯</div>
+                <h3>Quando chego aos €10.000?</h3>
+                <p>
+                    Descobre quanto tempo precisas para
+                    atingir o teu objetivo.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CAPTAÇÃO DE EMAIL -->
+
+    <section class="email-box">
+
+        <h2>
+            💸 Queres receber dicas para poupar?
+        </h2>
+
+        <p>
+            Deixa o teu email e poderemos enviar-te
+            novas ferramentas e conteúdos.
+        </p>
+
+        <form class="email-form" onsubmit="subscribe(event)">
+
+            <input
+                id="email"
+                type="email"
+                placeholder="O teu email"
+                required
+            >
+
+            <button>
+                ENTRAR
+            </button>
+
+        </form>
+
+    </section>
+
+
+</main>
+
+
+<footer>
+
+    © 2026 QuantoTeSobra?
+
+    <br><br>
+
+    Ferramenta informativa. Não constitui aconselhamento financeiro.
+
+</footer>
+
+
+<!-- MODAL DE COMPRA -->
+
+<div class="modal" id="purchaseModal">
+
+    <div class="modal-box">
+
+        <h2>
+            🔒 QuantoTeSobra PRO
+        </h2>
+
+        <p>
+            Aqui vais ligar o botão ao teu sistema de pagamento.
+            Por enquanto esta página está preparada para receber
+            a integração.
+        </p>
+
+        <br>
+
+        <strong>
+            Produto: Análise financeira completa
+        </strong>
+
+        <br><br>
+
+        <strong>
+            €4,99 · pagamento único
+        </strong>
+
+        <button class="buy" style="margin-top:20px"
+        onclick="paymentPlaceholder()">
+            CONTINUAR PARA PAGAMENTO
+        </button>
+
+        <button class="modal-close"
+        onclick="closePurchase()">
+            Fechar
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function value(id){
+
+    return Number(
+        document.getElementById(id).value
+    ) || 0;
+
+}
+
+
+function money(number){
+
+    return new Intl.NumberFormat(
+        'pt-PT',
+        {
+            style:'currency',
+            currency:'EUR',
+            maximumFractionDigits:0
+        }
+    ).format(number);
+
+}
+
+
+function calculate(){
+
+    const income = value("income");
+
+    const expenses =
+        value("rent") +
+        value("car") +
+        value("fuel") +
+        value("food") +
+        value("phone") +
+        value("fun") +
+        value("other");
+
+    const remaining = income - expenses;
+
+    const yearly = remaining * 12;
+
+    let percentage = 0;
+
+    if(income > 0){
+
+        percentage =
+            (remaining / income) * 100;
+
+    }
+
+
+    document.getElementById("incomeResult")
+        .textContent = money(income);
+
+    document.getElementById("expensesResult")
+        .textContent = money(expenses);
+
+    document.getElementById("savingResult")
+        .textContent =
+        Math.max(0,percentage).toFixed(0) + "%";
+
+    document.getElementById("remaining")
+        .textContent = money(remaining);
+
+    document.getElementById("yearly")
+        .textContent =
+        money(yearly) + " por ano";
+
+
+    const amount =
+        document.getElementById("remaining");
+
+    const status =
+        document.getElementById("status");
+
+
+    amount.classList.remove(
+        "green",
+        "yellow",
+        "red"
+    );
+
+
+    if(income <= 0){
+
+        amount.classList.add("yellow");
+
+        status.textContent =
+            "⚠️ Introduz primeiro o teu rendimento.";
+
+    }
+
+    else if(remaining < 0){
+
+        amount.classList.add("red");
+
+        status.textContent =
+            "🔴 Estás a gastar mais do que recebes.";
+
+    }
+
+    else if(percentage < 10){
+
+        amount.classList.add("yellow");
+
+        status.textContent =
+            "🟠 Tens pouca margem para poupar.";
+
+    }
+
+    else if(percentage < 20){
+
+        amount.classList.add("yellow");
+
+        status.textContent =
+            "🟡 Tens alguma margem para poupar.";
+
+    }
+
+    else{
+
+        amount.classList.add("green");
+
+        status.textContent =
+            "🟢 Tens uma boa margem mensal.";
+
+    }
+
+
+    document.getElementById("result")
+        .classList.add("show");
+
+
+    document.getElementById("result")
+        .scrollIntoView({
+            behavior:"smooth",
+            block:"center"
+        });
+
+}
+
+
+function shareResult(){
+
+    const result =
+        document.getElementById("remaining")
+        .textContent;
+
+    const text =
+        "💰 Fiz as contas no QuantoTeSobra e sobram-me "
+        + result
+        + " por mês. Quanto te sobra a ti?";
+
+    if(navigator.share){
+
+        navigator.share({
+            title:"QuantoTeSobra?",
+            text:text,
+            url:window.location.href
+        });
+
+    }else{
+
+        navigator.clipboard.writeText(
+            text + " " + window.location.href
+        );
+
+        alert(
+            "Resultado copiado! Agora podes partilhá-lo."
+        );
+
+    }
+
+}
+
+
+function openPurchase(){
+
+    document.getElementById(
+        "purchaseModal"
+    ).classList.add("active");
+
+}
+
+
+function closePurchase(){
+
+    document.getElementById(
+        "purchaseModal"
+    ).classList.remove("active");
+
+}
+
+
+function paymentPlaceholder(){
+
+    alert(
+        "Aqui vais colocar o teu link de pagamento."
+    );
+
+}
+
+
+function subscribe(event){
+
+    event.preventDefault();
+
+    const email =
+        document.getElementById("email").value;
+
+    /*
+       FUTURO:
+       ligar este formulário a uma ferramenta
+       gratuita de email marketing.
+
+       Neste momento apenas simulamos
+       a inscrição.
+    */
+
+    alert(
+        "Obrigado! Email registado: " + email
+    );
+
+    document.getElementById("email").value = "";
+
+}
+
+
+function scrollToTools(){
+
+    document.getElementById("tools")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+
+}
+
+</script>
+
+</body>
+</html>
